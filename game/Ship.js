@@ -4,6 +4,7 @@ function Ship() {
   this.heading = 0;
   this.rotation = 0;
   this.vel = createVector(0, 0);
+  this.boosting = false;
 
   this.update = function () {
     this.pos.add(this.vel);
@@ -31,10 +32,25 @@ function Ship() {
   };
   this.render = function () {
     push();
+    noStroke();
+    const colors = ['#d9bbb8', '#de6357'];
+    // // for (i = 0; i < colors.length; i++) {
+    // //   color = color[i];
+    // // }
+    // fill(this.color);
+    triangle(
+      this.pos.x,
+      this.pos.y + 10,
+      this.pos.x,
+      this.pos.y - 10,
+      this.pos.x - 30,
+      this.pos.y
+    );
+
     translate(this.pos.x, this.pos.y);
     rotate(this.heading + PI / 2);
-
     image(spaceship, 15, 10, -30, -30);
+
     pop();
   };
   this.edges = function () {
