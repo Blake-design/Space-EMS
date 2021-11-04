@@ -1,9 +1,10 @@
 function Ship() {
   this.pos = createVector(width / 2, height / 2);
-  this.r = 20;
+  this.r = 0;
   this.heading = 0;
   this.rotation = 0;
   this.vel = createVector(0, 0);
+  this.boosting = false;
 
   this.update = function () {
     this.pos.add(this.vel);
@@ -16,20 +17,40 @@ function Ship() {
   };
 
   this.setRotation = function (angle) {
-    this.rotation = angle;
+    this.rotation = -angle;
   };
 
   this.turn = function () {
-    this.heading += this.rotation;
+    this.heading -= this.rotation;
   };
 
+  this.hits = function (asteroid) {
+    var d = dist(this.pos.x, this.pos.y, asteroid.pos.x, asteroid.pos.y);
+    if (d < this.r + asteroid.r) {
+      return true;
+    }
+  };
   this.render = function () {
     push();
-    translate(this.pos.x, this.pos.y); 
+    noStroke();
+    const colors = ['#d9bbb8', '#de6357'];
+    // // for (i = 0; i < colors.length; i++) {
+    // //   color = color[i];
+    // // }
+    // fill(this.color);
+    triangle(
+      this.pos.x,
+      this.pos.y + 10,
+      this.pos.x,
+      this.pos.y - 10,
+      this.pos.x - 30,
+      this.pos.y
+    );
+
+    translate(this.pos.x, this.pos.y);
     rotate(this.heading + PI / 2);
-    fill(0);
-    stroke(255);
-    triangle(-this.r, this.r, this.r, this.r, 0, -this.r);
+    image(spaceship, 15, 10, -30, -30);
+
     pop();
   };
   this.edges = function () {
