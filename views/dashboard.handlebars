@@ -1,0 +1,47 @@
+<div class='jumbotron jumbotron-fluid'>
+  <div class='container col-auto'>
+    <h2 class='display-4'>Welcome, {{name}}!</h2>
+    <p class='lead'>The object of this mission is to safely get the outerspace
+      EMS vehicle through the asteroid field to deliver the emergency supplies
+      to the destination planet. Use the arrow keys to navigate through the
+      asteroid belt while blasting away objects in your way. Good luck!
+    </p>
+  </div>
+</div>
+
+<div class='row mt-4'>
+  <canvas class='col'></canvas>
+</div>
+
+<aside class='' style='width: 20rem;'>
+  <div class='card-header text-center p-3'>
+    <h1>HIGH SCORES</h1>
+  </div>
+  <table class='table table-hover table-dark'>
+    <thead>
+      <tr>
+        <th scope='col' class='col'>#</th>
+        <th scope='col' class='col'>Username</th>
+        <th scope='col' class='col'>Top Score</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope='row'>1</th>
+        <td>{{name}}</td>
+        <td>{{user_hiScore}}</td>
+      </tr>
+      <tr>
+        <th scope='row'>2</th>
+        <td>{{name}}</td>
+        <td>{{user_hiScore}}</td>
+      </tr>
+      <tr>
+        <th scope='row'>3</th>
+        <td>{{name}}</td>
+        <td>{{user_hiScore}}</td>
+
+      </tr>
+    </tbody>
+  </table>
+</aside>

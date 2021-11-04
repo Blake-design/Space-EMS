@@ -11,9 +11,9 @@ Score.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    user_score: {
+    user_hiScore: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allownull: true,
     },
     user_id: {
       type: DataTypes.INTEGER,
@@ -27,8 +27,8 @@ Score.init(
     sequelize,
     timestamps: false,
     freezeTableName: true,
-    underscored: true,
-    modelName: 'score',
+
+    modelName: 'Score',
   }
 );
 
