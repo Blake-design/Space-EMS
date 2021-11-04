@@ -19,7 +19,7 @@ function Asteroid(pos) {
   this.render = function () {
     push();
     stroke(255);
-    noFill();
+    fill('#ed225d');
     translate(this.pos.x, this.pos.y);
     beginShape();
     for (var i = 0; i < this.total; i++) {
