@@ -1,14 +1,13 @@
 [
   {
-    "user_hiScore": "500",
-    "user_id": "Blake"
+    "user_HiScore": "500",
+    "name": "Sal"
   },
   {
-    "user_hiScore": "400",
-    "user_id": "Deni"
+    "user_HiScore": "500",
+    "name": "Lernantino"
   },
   {
-    "user_hiScore": "1000",
-    "user_id": "Jose"
+    "user_HiScore": "500",
+    "name": "Amiko"
   }
-]
