@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const { parse } = require('dotenv');
 const { Score, User } = require('../models');
 const withAuth = require('../utils/auth');
 
@@ -27,27 +28,27 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.get('/score/:id', async (req, res) => {
-  try {
-    const scoreData = await Score.findByPk(req.params.id, {
-      include: [
-        {
-          model: User,
-          attributes: ['name'],
-        },
-      ],
-    });
+// router.get('/score/:id', async (req, res) => {
+//   try {
+//     const scoreData = await Score.findByPk(req.params.id, {
+//       include: [
+//         {
+//           model: User,
+//           attributes: ['name'],
+//         },
+//       ],
+//     });
 
-    const score = scoreData.get({ plain: true });
+//     const score = scoreData.get({ plain: true });
 
-    res.render('Score', {
-      ...score,
-      logged_in: req.session.logged_in,
-    });
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+//     res.render('Score', {
+//       ...score,
+//       logged_in: req.session.logged_in,
+//     });
+//   } catch (err) {
+//     res.status(500).json(err);
+//   }
+// });
 
 // Use withAuth middleware to prevent access to route
 router.get('/dashboard', withAuth, async (req, res) => {
@@ -58,11 +59,39 @@ router.get('/dashboard', withAuth, async (req, res) => {
       include: [{ model: Score }],
     });
 
-    const user = userData.get({ plain: true });
+    // const scoreData = await Score.findAll({
+    //   raw: true,
+    // });
 
-    res.render('dashboard', {
-      ...user,
+    const allUserData = await User.findAll({
+      attributes: { exclude: ['password', 'email'] },
+      include: [{ model: Score }],
+      raw: true,
+    });
+
+    var cleanData = JSON.parse(JSON.stringify(allUserData));
+    // console.log(allUserData);
+    const user = userData.get({ plain: true });
+    // console.log(user);
+    const data = {
+      leaderboardnumber: user.id,
+      // name: user.name,
+      score: user[Score.user_hiScore],
+
+      // ['Score.id','Score.user_hiScore':]
       logged_in: true,
+    };
+
+    //
+
+    console.log('this is our data', cleanData);
+    res.render('dashboard', {
+      name: user.name,
+      // data,
+
+      scores: {
+        ...cleanData,
+      },
     });
   } catch (err) {
     res.status(500).json(err);

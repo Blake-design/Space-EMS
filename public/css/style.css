@@ -24,23 +24,26 @@ section {
   padding-left: 15px;
   margin-left: 15px;
   font-style: italic;
-  border: 1px solid black;
+  border: 1px solid whitesmoke;
+  position: relative;
 }
 
 table {
-  border: 1px solid black;
+  border: 1px solid whitesmoke;
   width: 100%;
 }
 
 th {
   height: 20px;
+  color: whitesmoke;
   text-align: center;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid whitesmoke;
 }
 
 td {
   text-align: center;
-  border-bottom: 1px solid #ddd;
+  color: whitesmoke;
+  border-bottom: 1px solid whitesmoke;
 }
 
 .title {
@@ -99,4 +102,8 @@ td {
   background: transparent url(../assets/twinkling.png) repeat top center;
   z-index: 0;
   animation: move-twinkle-back 200s linear infinite;
+}
+#game-window {
+  position: relative;
+  z-index: 10;
 }

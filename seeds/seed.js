@@ -14,8 +14,10 @@ const seedDatabase = async () => {
 
   for (const score of scoreData) {
     await Score.create({
-      ...score,
-      user_id: users[Math.floor(Math.random() * users.length)].id,
+      // ...score,
+      // user_id: users[users.length].id,
+      user_hiScore: score.user_hiScore,
+      user_id: score.user_id,
     });
   }
 
