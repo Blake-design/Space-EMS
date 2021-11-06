@@ -18,10 +18,28 @@ header,
   text-decoration: underline;
 }
 
-.dollar-amount {
-  color: #056605;
-  font-weight: bold;
-  margin-left: -5px;
+section {
+  width: 100%;
+  padding-left: 15px;
+  margin-left: 15px;
+  font-style: italic;
+  border: 1px solid black;
+}
+
+table {
+  border: 1px solid black;
+  width: 100%;
+}
+
+th {
+  height: 20px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+td {
+  text-align: center;
+  border-bottom: 1px solid #ddd;
 }
 
 .title {

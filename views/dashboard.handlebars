@@ -1,28 +1,50 @@
-<div class='row'>
-  <div class='col-auto'>
-    <h2>Welcome, {{name}}!</h2>
+
+<div class='jumbotron jumbotron-fluid'>
+  <div class='container col-auto'>
+    <h2 class='display-4'>Welcome, {{name}}!</h2>
+    <p class='lead'>The object of this mission is to safely get the outerspace
+      EMS vehicle through the asteroid field to deliver the emergency supplies
+      to the destination planet. Use the arrow keys to navigate through the
+      asteroid belt while blasting away objects in your way. Good luck!
+    </p>
   </div>
 </div>
 
 <div class='row mt-4'>
   <canvas class='col'></canvas>
-  <aside class='card'>
-    <div class='card-header text-center p-3'>
-      <h1>HI-SCORES</h1>
-    </div>
-    <div class='card-body row'>
-      <div class= "users"> 
-         <li class='user-list'>
-        <ol class='user'>Blake<ol>
-      </li>
-      </div>
-      <div class="scores"> 
-         <li class='score-list'>
-        <ol class='scores'>200<ol>
-      </li></div>
-    
-
-    </div>
-  </aside>
 
 </div>
+
+<section class='scoreboard' style=''>
+  <div class='card-header text-center p-3'>
+    <h1>HIGH SCORES</h1>
+  
+    <table class='table table-striped table-responsive'>
+      <thead>
+        <tr>
+          <th scope='col'>#</th>
+          <th scope='col'>Username</th>
+          <th scope='col'>Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope='row'>1</th>
+          <td>{{user_id}}</td>
+          <td>{{user_hiScore}}</td>
+        </tr>
+        <tr>
+          <th scope='row'>2</th>
+          <td>{{user_id}}</td>
+          <td>{{user_hiScore}}</td>
+        </tr>
+        <tr>
+          <th scope='row'>3</th>
+          <td>{{user_id}}</td>
+          <td>{{user_hiScore}}</td>
+        </tr>
+      </tbody>
+    </div>
+  </table>
+
+</section>
