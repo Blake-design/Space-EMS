@@ -1,6 +1,7 @@
-header,
-.project:not(:last-child) {
+header {
   border-bottom: 1px solid #ccc;
+
+  z-index: 10;
 }
 
 .no-button {
@@ -16,12 +17,6 @@ header,
 .no-button:hover {
   color: #065b83;
   text-decoration: underline;
-}
-
-.dollar-amount {
-  color: #056605;
-  font-weight: bold;
-  margin-left: -5px;
 }
 
 .title {
