@@ -33,19 +33,6 @@ function Ship() {
   this.render = function () {
     push();
     noStroke();
-    const colors = ['#d9bbb8', '#de6357'];
-    // // for (i = 0; i < colors.length; i++) {
-    // //   color = color[i];
-    // // }
-    // fill(this.color);
-    triangle(
-      this.pos.x,
-      this.pos.y + 10,
-      this.pos.x,
-      this.pos.y - 10,
-      this.pos.x - 30,
-      this.pos.y
-    );
 
     translate(this.pos.x, this.pos.y);
     rotate(this.heading + PI / 2);
