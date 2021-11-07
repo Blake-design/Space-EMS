@@ -38,12 +38,16 @@ function Asteroid(pos, r) {
     endShape(CLOSE);
     pop();
   };
+
   this.breakup = function () {
-    var newA = [];
-    newA[0] = new Asteroid(this.pos, this.r);
-    newA[1] = new Asteroid(this.pos, this.r);
-    return newA;
+    if (this.r > 8) {
+      var newA = [];
+      newA[0] = new Asteroid(this.pos, this.r);
+      newA[1] = new Asteroid(this.pos, this.r);
+      return newA;
+    } else return [];
   };
+
   this.edges = function () {
     if (this.pos.x > width + this.r) {
       this.pos.x = -this.r;

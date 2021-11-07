@@ -2,7 +2,18 @@ var ship;
 var planet;
 var asteroids = [];
 var lasers = [];
-let spaceship;
+var spaceship;
+var score = 0;
+
+localStorage.setItem('highscore', 0);
+if (score > parseInt(localStorage.getItem('highscore'))) {
+  localStorage.setItem('highscore', score);
+}
+var hiScore = localStorage.getItem('highscore');
+var hud;
+
+var level = 1;
+
 function preload() {
   spaceship = loadImage('./game/spaceShip.svg');
 }
@@ -11,10 +22,9 @@ function setup() {
   canvas.parent('game-window');
 
   ship = new Ship();
+  hud = new Hud();
 
-  for (var i = 0; i < 3; i++) {
-    asteroids.push(new Asteroid());
-  }
+  spawnAsteroids();
 
   planet = new Planet();
 }
@@ -29,6 +39,8 @@ function draw() {
     asteroid.update();
     asteroid.edges();
     if (ship.hits(asteroid)) {
+      console.log('boom you dead ');
+      reset();
     }
   });
 
@@ -40,13 +52,16 @@ function draw() {
     } else {
       for (var j = asteroids.length - 1; j >= 0; j--) {
         if (lasers[i].hits(asteroids[j])) {
-          if (asteroids[j].r > 10) {
-            var newAsteroids = asteroids[j].breakup();
-            asteroids = asteroids.concat(newAsteroids);
-            asteroids.splice(j, 1);
-            lasers.splice(i, 1);
-            break;
+          var newAsteroids = asteroids[j].breakup();
+          asteroids = asteroids.concat(newAsteroids);
+          asteroids.splice(j, 1);
+          lasers.splice(i, 1);
+          score += 1;
+          if (asteroids.length == 0) {
+            spawnAsteroids();
+            level += 1;
           }
+          break;
         }
       }
     }
@@ -55,4 +70,18 @@ function draw() {
   ship.turn();
   ship.update();
   ship.edges();
+  hud.render();
+}
+
+function spawnAsteroids() {
+  for (var i = 0; i < 3; i++) {
+    asteroids.push(new Asteroid());
+  }
+}
+
+function reset() {
+  score = 0;
+  level = 1;
+  asteroids = [];
+  spawnAsteroids();
 }
