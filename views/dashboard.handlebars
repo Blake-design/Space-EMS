@@ -14,11 +14,11 @@
 <div class='row justify-center align-center'>
   <div class="col" id="game-window">
         <script src="../game/Sketch.js"></script>
+         <script src="../game/Controls.js"></script>
         <script src="../game/Asteroid.js"></script>
         <script src="../game/Laser.js"></script>
         <script src="../game/Ship.js"></script>
         <script src="../game/Planet.js"></script>
-        <script src="../game/Controls.js"></script>
       </div>
 
 </div>
@@ -37,13 +37,15 @@
       </thead>
 
       <tbody>
-        {{#each scores as |score| }}
+        {{#each players as |player| }}
         <tr>
-          <th scope='row'>{{score.id}}</th>
-          <td>{{score}}</td>
-         {{!-- <td>{{user_hiScore}}</td>  --}}
+          <th scope='row'>{{id}}</th>
+          <td>{{name}}</td>
+          <td> {{#each scores as |score| }} 
+            {{user_hiScore}}
+            {{/each}}</td> 
         </tr>
-        {{/each}}  
+        {{/each}}
       </tbody>
     </div>
   </table>
