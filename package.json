@@ -1,7 +1,7 @@
 {
-  "name": "crowd-funding",
+  "name": "sapce-ems",
   "version": "1.0.0",
-  "description": "",
+  "description": "MVC web app to play a Astroids clone with score leaderboard",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,7 +9,7 @@
     "seed": "node seeds/seed.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Blake McCarty, Deni Mazzei, Jose Izquierdo",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.0",
