@@ -1,67 +1,151 @@
 function Ship() {
-  this.pos = createVector(width / 2, height / 2);
-  this.r = 0;
-  this.heading = 0;
-  this.rotation = 0;
-  this.vel = createVector(0, 0);
-  this.boosting = false;
+  Entity.call(this, width / 2, height / 2, 20);
 
+  this.isDestroyed = false;
+  this.destroyedFrames = 600;
+  this.shields = shieldTime;
+  this.rmax = (4 / 3) * this.r;
+  this.rmax2 = this.rmax * this.rmax;
+  ////  ship controls
+  var scope = this;
+  input.registerAsListener(' '.charCodeAt(0), function (char, code, press) {
+    if (!press) {
+      return;
+    }
+
+    var laser = new Laser(scope.pos, scope.vel, scope.heading);
+    lasers.push(laser);
+  });
+
+  input.registerAsListener(RIGHT_ARROW, function (char, code, press) {
+    scope.setRotation(press ? 0.08 : 0);
+  });
+  input.registerAsListener(LEFT_ARROW, function (char, code, press) {
+    scope.setRotation(press ? -0.08 : 0);
+  });
+  input.registerAsListener(UP_ARROW, function (char, code, press) {
+    scope.setAccel(press ? 0.1 : 0);
+  });
+
+  /// always running to check statments
   this.update = function () {
-    this.pos.add(this.vel);
+    Entity.prototype.update.call(this);
+    this.vel.mult(0.99);
+    if (this.isDestroyed) {
+      for (var i = 0; i < this.brokenParts.length; i++) {
+        this.brokenParts[i].pos.add(this.brokenParts[i].vel);
+        this.brokenParts[i].heading += this.brokenParts[i].rot;
+      }
+    } else {
+      this.vel.mult(0.99);
+    }
+    if (this.shields > 0) {
+      this.shields -= 1;
+    }
   };
 
-  this.boost = function () {
-    var force = p5.Vector.fromAngle(this.heading);
-    force.mult(0.5);
-    this.vel.add(force);
-  };
-
-  this.setRotation = function (angle) {
-    this.rotation = -angle;
-  };
-
-  this.turn = function () {
-    this.heading -= this.rotation;
+  // break up ship
+  this.brokenParts = [];
+  this.destroy = function () {
+    this.isDestroyed = true;
+    for (var i = 0; i < 4; i++)
+      this.brokenParts[i] = {
+        pos: this.pos.copy(),
+        vel: p5.Vector.random2D(),
+        heading: random(0, 360),
+        rot: random(-0.07, 0.07),
+      };
   };
 
   this.hits = function (asteroid) {
-    var d = dist(this.pos.x, this.pos.y, asteroid.pos.x, asteroid.pos.y);
-    if (d < this.r + asteroid.r) {
+    /// are shields up?
+    if (this.shields > 0) {
+      return false;
+    }
+
+    /// is ship far from asteroid
+    var dist2 =
+      (this.pos.x - asteroid.pos.x) *
+      (this.pos.x - asteroid.pos.x) *
+      (this.pos.y - asteroid.pos.y) *
+      (this.pos.y - asteroid.pos.y);
+
+    if (dist2 >= (this.rmax2 + asteroid.rmax) * (this.rmax2 + asteroid.rmax)) {
+      return false;
+    }
+
+    /// is ship inside asteroid
+    if (dist2 <= asteroid.rmin2) {
       return true;
     }
+
+    /// otherwise check for line intersetion
+
+    var vertices = [
+      createVector((-2 / 3) * this.r, this.r).rotate(this.heading),
+      createVector((-2 / 3) * this.r, -this.r).rotate(this.heading),
+      createVector((4 / 3) * this.r, 0).rotate(this.heading),
+    ];
+    for (var i = 0; i < vertices.length; i++) {
+      vertices[i] = p5.Vector.add(vertices[i], this.pos);
+    }
+    var asteroid_vertices = asteroid.vertices();
+
+    for (var i = 0; i < asteroid_vertices.length; i++) {
+      for (var j = 0; j < vertices.length; j++) {
+        var next_i = (i + 1) % asteroid_vertices.length;
+        if (
+          lineIntersect(
+            vertices[j],
+            vertices[(j + 1) % vertices.length],
+            asteroid_vertices[i],
+            asteroid_vertices[next_i]
+          )
+        ) {
+          return true;
+        }
+      }
+    }
+    return false;
   };
+
   this.render = function () {
-    push();
-    noStroke();
-    const colors = ['#d9bbb8', '#de6357'];
-    // // for (i = 0; i < colors.length; i++) {
-    // //   color = color[i];
-    // // }
-    // fill(this.color);
-    triangle(
-      this.pos.x,
-      this.pos.y + 10,
-      this.pos.x,
-      this.pos.y - 10,
-      this.pos.x - 30,
-      this.pos.y
-    );
+    if (this.isDestroyed) {
+      for (var i = 0; i < this.brokenParts.length; i++) {
+        push();
+        stroke(floor(255 * (this.destroyFrames-- / 600)));
+        var bp = this.brokenParts[i];
+        translate(bp.pos.x, bp.pos.y);
+        rotate(bp.heading);
+        line(-this.r / 2, -this.r / 2, this.r / 2, this.r / 2);
+        pop();
+      }
+    } else {
+      push();
+      translate(this.pos.x, this.pos.y);
+      rotate(this.heading);
+      image(spaceship, 15, 10, -30, -30);
+      var shieldCol = random(map(this.shields, 0, shieldTime, 255, 0), 255);
+      stroke(shieldCol, shieldCol, 255);
+      // triangle(
+      //   (-2 / 3) * this.r,
+      //   -this.r,
+      //   (-2 / 3) * this.r,
+      //   this.r,
+      //   (4 / 3) * this.r,
+      //   0
+      // );
 
-    translate(this.pos.x, this.pos.y);
-    rotate(this.heading + PI / 2);
-    image(spaceship, 15, 10, -30, -30);
+      if (this.accelMagnitude != 0) {
+        translate(-this.r, 0);
+        rotate(random(PI / 4, (3 * PI) / 4));
+        line(0, 0, 0, 10);
+      }
 
-    pop();
-  };
-  this.edges = function () {
-    if (this.pos.x > width + this.r) {
-      this.pos.x = -this.r;
-    } else if (this.pos.x < -this.r) {
-      this.pos.x = width + this.r;
-    } else if (this.pos.y > height + this.r) {
-      this.pos.y = -this.r;
-    } else if (this.pos.y < -this.r) {
-      this.pos.y = height + this.r;
+      pop();
     }
   };
 }
+
+//// this will connect objects together
+Ship.prototype = Object.create(Entity.prototype);
