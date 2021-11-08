@@ -24,9 +24,10 @@ router.get('/dashboard', withAuth, async (req, res) => {
 
     const allUserData = await User.findAll({
       attributes: { exclude: ['password', 'email'] },
+      include: [{ model: Score }],
       raw: true,
     });
-
+    console.log(allUserData);
     const user = userData.get({ plain: true });
 
     res.render('dashboard', {
