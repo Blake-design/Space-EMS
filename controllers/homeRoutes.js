@@ -22,18 +22,11 @@ router.get('/dashboard', withAuth, async (req, res) => {
       include: [{ model: Score }],
     });
 
-    const scoreData = await Score.findAll({
-      attributes: { exclude: ['password', 'email'] },
-      include: [{ model: User }],
-      raw: true,
-    });
-
     const allUserData = await User.findAll({
       attributes: { exclude: ['password', 'email'] },
       raw: true,
     });
 
-    console.log('-----------------------------', scoreData);
     const user = userData.get({ plain: true });
 
     res.render('dashboard', {
@@ -41,10 +34,6 @@ router.get('/dashboard', withAuth, async (req, res) => {
 
       players: {
         ...allUserData,
-      },
-
-      scores: {
-        ...scoreData,
       },
     });
   } catch (err) {
