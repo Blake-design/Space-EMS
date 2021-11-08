@@ -4,6 +4,14 @@ function Hud() {
   };
 
   function renderScore() {
+    if (localStorage.getItem('highscore') == null) {
+      localStorage.setItem('highscore', 0);
+    }
+
+    if (score >= parseInt(localStorage.getItem('highscore'))) {
+      localStorage.setItem('highscore', score);
+    }
+    var hiScore = localStorage.getItem('highscore');
     textSize(32);
     fill(247, 241, 62);
     text('Score:', 10, 30);

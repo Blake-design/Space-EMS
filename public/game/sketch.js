@@ -5,12 +5,6 @@ var lasers = [];
 var spaceship;
 var score = 0;
 
-localStorage.setItem('highscore', 0);
-if (score > parseInt(localStorage.getItem('highscore'))) {
-  localStorage.setItem('highscore', score);
-}
-var hiScore = localStorage.getItem('highscore');
-
 var hud;
 
 var level = 1;
