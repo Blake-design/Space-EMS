@@ -19,5 +19,9 @@ function Hud() {
     textSize(32);
     fill(242, 240, 240);
     text(hiScore, 200, 100);
+
+    textSize(32);
+    fill(242, 240, 240);
+    text('Level:' + level, 900, 30);
   }
 }

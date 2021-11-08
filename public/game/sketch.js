@@ -10,6 +10,7 @@ if (score > parseInt(localStorage.getItem('highscore'))) {
   localStorage.setItem('highscore', score);
 }
 var hiScore = localStorage.getItem('highscore');
+
 var hud;
 
 var level = 1;
