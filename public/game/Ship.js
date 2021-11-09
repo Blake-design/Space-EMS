@@ -4,7 +4,6 @@ function Ship() {
   this.heading = 0;
   this.rotation = 0;
   this.vel = createVector(0, 0);
-  this.boosting = false;
 
   this.update = function () {
     this.pos.add(this.vel);
@@ -14,6 +13,11 @@ function Ship() {
     var force = p5.Vector.fromAngle(this.heading);
     force.mult(0.5);
     this.vel.add(force);
+  };
+  this.brake = function () {
+    var brake = p5.Vector.fromAngle(this.heading);
+    brake.mult(1);
+    this.vel.sub(brake);
   };
 
   this.setRotation = function (angle) {
@@ -49,28 +53,6 @@ function Ship() {
       this.pos.y = -this.r;
     } else if (this.pos.y < -this.r) {
       this.pos.y = height + this.r;
-    }
-  };
-
-  this.brokenParts = [];
-
-  this.explode = function () {
-    for (var i = 0; i < 4; i++)
-      this.brokenParts[i] = {
-        pos: this.pos.copy(),
-        vel: p5.Vector.random2D(),
-        heading: random(0, 360),
-        rot: random(-0.07, 0.07),
-      };
-
-    for (var i = 0; i < this.brokenParts.length; i++) {
-      push();
-      stroke(floor(255 * (this.destroyFrames-- / 600)));
-      var bp = this.brokenParts[i];
-      translate(bp.pos.x, bp.pos.y);
-      rotate(bp.heading);
-      line(-this.r / 2, -this.r / 2, this.r / 2, this.r / 2);
-      pop();
     }
   };
 }
