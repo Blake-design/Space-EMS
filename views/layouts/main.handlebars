@@ -26,9 +26,10 @@
         class='display-flex text-center justify-space-between align-center p-2'
       >
 
-        <nav>
+        <nav class='menu'>
           <!-- Conditionally render login or logout links -->
           {{#if logged_in}}
+            <a href='/dashboard'>dashboard</a>
             <button class='no-button' id='logout'>logout</button>
           {{else}}
             <a href='/login'>Login to Play!</a>

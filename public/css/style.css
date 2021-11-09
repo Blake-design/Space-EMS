@@ -5,8 +5,8 @@ header {
 }
 
 .no-button {
-  background: none;
-  border: none;
+  background: blue;
+  border: whitesmoke;
   padding: 0;
   cursor: pointer;
   color: #1b89bc;
