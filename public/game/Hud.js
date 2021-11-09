@@ -30,6 +30,6 @@ function Hud() {
 
     textSize(32);
     fill(242, 240, 240);
-    text('Level:' + level, 900, 30);
+    text('Level:' + level, windowWidth - 200, 30);
   }
 }

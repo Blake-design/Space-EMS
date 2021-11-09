@@ -13,6 +13,6 @@ function keyPressed() {
     ship.boost();
     ship.boosting = true;
   } else if ((keyCode = DOWN_ARROW)) {
-    ship.boost();
+    ship.brake();
   }
 }
