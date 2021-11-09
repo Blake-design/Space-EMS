@@ -2,6 +2,8 @@ const router = require('express').Router();
 const { parse } = require('dotenv');
 const { Score, User } = require('../models');
 const withAuth = require('../utils/auth');
+var helpers = require('handlebars-helpers');
+var array = helpers.array();
 
 router.get('/', async (req, res) => {
   try {
@@ -30,7 +32,10 @@ router.get('/dashboard', withAuth, async (req, res) => {
     const user = userData.get({ plain: true });
     const all = allUserData.map((some) => some.get({ plain: true }));
 
-    console.log(all);
+    all.sort(function (a, b) {
+      return b.Score.user_hiScore - a.Score.user_hiScore;
+    });
+
     res.render('dashboard', {
       name: user.name,
 
