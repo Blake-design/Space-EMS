@@ -14,7 +14,7 @@ function Hud() {
     var hiScore = localStorage.getItem('highscore');
     textSize(32);
     fill(247, 241, 62);
-    text('Score:', 10, 30);
+    text('Score:', 50, 30);
 
     textSize(32);
     fill(247, 241, 62);
@@ -22,7 +22,7 @@ function Hud() {
 
     textSize(32);
     fill(242, 240, 240);
-    text('Hi-Score:', 10, 100);
+    text('Hi-Score:', 50, 100);
 
     textSize(32);
     fill(242, 240, 240);
