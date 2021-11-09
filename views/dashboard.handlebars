@@ -1,11 +1,18 @@
  
+
 <div class='jumbotron jumbotron-fluid'>
  
   <div class='container col-auto'>
      <div class="logout">
-       
-     <button class="no-button" id="logout">logout</button>
-</div>
+        <a class='nav-link' id="logout" href='/logout'>logout</a>
+        {{#if loggedIn}}
+    <button id="logout" class="btn-no-style">Logout</button>
+    {{else}}
+    <!-- Otherwise, show a link to login -->
+    <a href="/login">Login</a>
+    {{/if}}
+
+  </div>
     
     <h2 class='display-4 text-light'>Welcome, {{name}}!</h2>
     <p class='lead text-light'>The object of this mission is to safely get the outerspace
@@ -56,8 +63,10 @@
       </tbody>
     </div>
   </table>
- {{#if logged_in}}
-  <script src="/js/logout.js"></script>
-  {{/if}}
 </section>
+
+    <!-- Render script for logged in users only -->
+    {{#if logged_in}}
+      <script src='/js/logout.js'></script>
+    {{/if}}
  
