@@ -25,16 +25,17 @@ router.get('/dashboard', withAuth, async (req, res) => {
     const allUserData = await User.findAll({
       attributes: { exclude: ['password', 'email'] },
       include: [{ model: Score }],
-      raw: true,
     });
-    console.log(allUserData);
-    const user = userData.get({ plain: true });
 
+    const user = userData.get({ plain: true });
+    const all = allUserData.map((some) => some.get({ plain: true }));
+
+    console.log(all);
     res.render('dashboard', {
       name: user.name,
 
       players: {
-        ...allUserData,
+        ...all,
       },
     });
   } catch (err) {
