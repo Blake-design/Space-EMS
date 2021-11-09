@@ -4,6 +4,7 @@ var asteroids = [];
 var lasers = [];
 var spaceship;
 var score = 0;
+var boosting;
 
 var hud;
 

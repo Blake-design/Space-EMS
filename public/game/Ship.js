@@ -4,6 +4,10 @@ function Ship() {
   this.heading = 0;
   this.rotation = 0;
   this.vel = createVector(0, 0);
+  speed = 0;
+  const min = 0;
+  const max = 10;
+  const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
 
   this.update = function () {
     this.pos.add(this.vel);
@@ -14,9 +18,10 @@ function Ship() {
     force.mult(0.5);
     this.vel.add(force);
   };
-  this.brake = function () {
+
+  this.reverse = function () {
     var brake = p5.Vector.fromAngle(this.heading);
-    brake.mult(1);
+    brake.mult(0.5);
     this.vel.sub(brake);
   };
 
