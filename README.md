@@ -79,7 +79,7 @@ This project was designed and developed by Blake McCarty, Deni Mazzei, and Jose 
 
 * Gameplay starter code: (https://github.com/CodingTrain/Asteroids)
 
-*Special thanks to TA Alvin Ng for his guidance!
+*Special thanks to TA Alvin Ng and Will Utterback for their guidance!
 
 ## Contact
 
