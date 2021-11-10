@@ -1,3 +1,7 @@
+* {
+  font-family: 'Audiowide', sans-serif;
+}
+
 header {
   border-bottom: 1px solid #ccc;
 
@@ -111,4 +115,20 @@ td {
 #game-window {
   position: relative;
   z-index: 10;
+}
+#mobile {
+  display: none;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+#full {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+@media screen and (max-width: 540px) {
+  #game-window,
+  #full {
+    display: none;
+  }
+  #mobile {
+    display: flex;
+  }
 }
