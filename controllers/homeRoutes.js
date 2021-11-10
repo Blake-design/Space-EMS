@@ -23,21 +23,19 @@ router.get('/dashboard', withAuth, async (req, res) => {
       attributes: { exclude: ['password'] },
       include: [{ model: Score }],
     });
-    console.log('hit user data', userData);
+
     const allUserData = await User.findAll({
       attributes: { exclude: ['password', 'email'] },
       include: [{ model: Score }],
     });
-    console.log('hit all user data', allUserData);
+
     const user = userData.get({ plain: true });
     const all = allUserData.map((some) => some.get({ plain: true }));
-    console.log('hit user', user);
-    console.log('hit all', all);
 
-    // all.sort(function (a, b) {
-    //   return b.Score.user_hiScore - a.Score.user_hiScore;
-    // });
-    // console.log('hit all sorted', all);
+    all.sort(function (a, b) {
+      return b.Score.user_hiScore - a.Score.user_hiScore;
+    });
+
     res.render('dashboard', {
       name: user.name,
 

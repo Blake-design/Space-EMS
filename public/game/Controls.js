@@ -1,7 +1,8 @@
 function keyReleased() {
   ship.setRotation(0);
 }
-function keyPressed() {
+function keyPressed(event) {
+  event.preventDefault();
   if (key == ' ') {
     lasers.push(new Laser(ship.pos, ship.heading));
   } else if (keyCode == RIGHT_ARROW) {
