@@ -75,7 +75,22 @@ function spawnAsteroids() {
   }
 }
 
-function reset() {
+async function reset() {
+  const hiScoreString = JSON.stringify({
+    hiScore: localStorage.getItem('highscore'),
+  });
+
+  try {
+    const response = await fetch('/api/dashboard', {
+      method: 'PUT', // *GET, POST, PUT, DELETE, etc.
+      body: hiScoreString,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  } catch (err) {
+    res.status(400).json(err);
+  }
   score = 0;
   level = 1;
   asteroids = [];
