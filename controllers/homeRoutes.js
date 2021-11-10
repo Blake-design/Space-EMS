@@ -32,9 +32,9 @@ router.get('/dashboard', withAuth, async (req, res) => {
     const user = userData.get({ plain: true });
     const all = allUserData.map((some) => some.get({ plain: true }));
 
-    all.sort(function (a, b) {
-      return b.Score.user_hiScore - a.Score.user_hiScore;
-    });
+    // all.sort(function (a, b) {
+    //   return b.Score.user_hiScore - a.Score.user_hiScore;
+    // });
 
     res.render('dashboard', {
       name: user.name,
