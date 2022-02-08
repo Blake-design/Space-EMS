@@ -31,17 +31,19 @@ router.get('/dashboard', withAuth, async (req, res) => {
 
     const user = userData.get({ plain: true });
     const all = allUserData.map((some) => some.get({ plain: true }));
+    console.log('this is before sort --------- ' + JSON.stringify({ ...all }));
+    await all.sort(function (a, b) {
+      return b.Score.user_hiScore - a.Score.user_hiScore;
+    });
+    const top5 = all.slice(0, 5);
 
-    // all.sort(function (a, b) {
-    //   return b.Score.user_hiScore - a.Score.user_hiScore;
-    // });
-
+    console.log(
+      'this is console log all --------- ' +
+        JSON.stringify(all[0].Score.user_hiScore)
+    );
     res.render('dashboard', {
       name: user.name,
-
-      players: {
-        ...all,
-      },
+      player: { ...top5 },
     });
   } catch (err) {
     console.log('hit err');

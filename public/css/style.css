@@ -54,6 +54,10 @@ td {
   color: whitesmoke;
   border-bottom: 1px solid whitesmoke;
 }
+.tb {
+  text-align: center;
+  color: whitesmoke;
+}
 
 .title {
   font-size: 50px;
